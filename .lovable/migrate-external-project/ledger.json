@@ -1,0 +1,12 @@
+{
+  "source": "github: rakeshyt8790/bespoke-album-app",
+  "capabilities": [
+    { "capability": "Public site (home, portfolio, quote builder)", "source": "src/routes + components/site", "outcome": "migrated", "status": "verified", "next_action": null },
+    { "capability": "Admin CMS dashboard (/admin)", "source": "src/routes/admin.tsx + components/admin", "outcome": "migrated", "status": "verified_ui", "next_action": "User must create an admin account in Cloud → Users → Add user" },
+    { "capability": "Database schema (site_settings, portfolio_media, event_types, services_cameras, quote_inquiries)", "source": "drizzle/migrations", "outcome": "migrated", "status": "verified", "next_action": null },
+    { "capability": "Seed data (settings, 6 event types, 9 services)", "source": "migration seed", "outcome": "migrated", "status": "verified", "next_action": null },
+    { "capability": "Photo storage bucket 'portfolio'", "source": "storage policies migration", "outcome": "migrated as private bucket with public read policy", "status": "verified", "next_action": null },
+    { "capability": "Admin auth (email/password)", "source": "Supabase auth", "outcome": "migrated to Lovable Cloud auth", "status": "pending_user", "next_action": "User creates admin account; old backend users/passwords do not carry over" },
+    { "capability": "Existing photos, inquiries, and settings records from old backend", "source": "not in repo", "outcome": "pending", "status": "blocked", "next_action": "Request CSV/JSON exports of tables + storage files from the old backend" }
+  ]
+}
