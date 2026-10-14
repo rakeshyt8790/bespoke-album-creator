@@ -2,10 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 
 import { supabase } from "@/integrations/supabase/client";
 
-import hero1 from "@/assets/hero-1.jpg";
-import hero2 from "@/assets/hero-2.jpg";
-import hero3 from "@/assets/hero-3.jpg";
-import hero4 from "@/assets/hero-4.jpg";
 
 export type SiteSettings = {
   id: string;
@@ -83,48 +79,7 @@ export const FALLBACK_SETTINGS: SiteSettings = {
   studio_address: "Jubilee Hills, Hyderabad, India",
 };
 
-export const FALLBACK_MEDIA: PortfolioMedia[] = [
-  {
-    id: "f1",
-    title: "Meera & Arjun — Muhurtham",
-    category: "Weddings",
-    media_url: hero1,
-    media_type: "image",
-    is_hero: true,
-    display_order: 1,
-    created_at: "",
-  },
-  {
-    id: "f2",
-    title: "Haldi mornings",
-    category: "Weddings",
-    media_url: hero2,
-    media_type: "image",
-    is_hero: true,
-    display_order: 2,
-    created_at: "",
-  },
-  {
-    id: "f3",
-    title: "Dusk, before the vows",
-    category: "Pre-Weddings",
-    media_url: hero3,
-    media_type: "image",
-    is_hero: true,
-    display_order: 3,
-    created_at: "",
-  },
-  {
-    id: "f4",
-    title: "Mandap, lit by hand",
-    category: "Weddings",
-    media_url: hero4,
-    media_type: "image",
-    is_hero: false,
-    display_order: 4,
-    created_at: "",
-  },
-];
+export const FALLBACK_MEDIA: PortfolioMedia[] = [];
 
 export const FALLBACK_EVENTS: EventType[] = [
   "Haldi",
@@ -209,11 +164,21 @@ export function useMedia() {
         .order("display_order", { ascending: true })
         .order("created_at", { ascending: false });
       if (error) throw error;
-      return (data ?? []) as PortfolioMedia[];
+      const rows = (data ?? []) as PortfolioMedia[];
+      // Sign all stored paths in one request so photos load fast.
+      const paths = rows.map((r) => r.media_url).filter((u) => u && !isExternalUrl(u));
+      if (paths.length > 0) {
+        const { data: signed } = await supabase.storage
+          .from("portfolio")
+          .createSignedUrls(paths, 60 * 60 * 24 * 7);
+        const map = new Map((signed ?? []).map((x) => [x.path, x.signedUrl]));
+        return rows.map((r) => ({ ...r, media_url: map.get(r.media_url) || r.media_url }));
+      }
+      return rows;
     },
-    staleTime: 30_000,
+    staleTime: 1000 * 60 * 30,
   });
-  const list = query.data && query.data.length > 0 ? query.data : FALLBACK_MEDIA;
+  const list = query.data ?? [];
   return { ...query, media: list };
 }
 
