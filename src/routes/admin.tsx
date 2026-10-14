@@ -7,6 +7,7 @@ import { BrandingPanel } from "@/components/admin/BrandingPanel";
 import { EventsPanel } from "@/components/admin/EventsPanel";
 import { InquiriesPanel } from "@/components/admin/InquiriesPanel";
 import { MediaPanel } from "@/components/admin/MediaPanel";
+import { OverviewPanel } from "@/components/admin/OverviewPanel";
 import { ServicesPanel } from "@/components/admin/ServicesPanel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
