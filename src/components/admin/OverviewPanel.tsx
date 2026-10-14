@@ -57,11 +57,11 @@ export function OverviewPanel() {
     queryFn: async (): Promise<Counts> => {
       const [m, mv, mh, ev, evt, sv, svt] = await Promise.all([
         supabase.from("portfolio_media").select("*", { count: "exact", head: true }),
-        supabase.from("portfolio_media").eq("media_type", "video").select("*", { count: "exact", head: true }),
-        supabase.from("portfolio_media").eq("is_hero", true).select("*", { count: "exact", head: true }),
-        supabase.from("event_types").eq("is_active", true).select("*", { count: "exact", head: true }),
+        supabase.from("portfolio_media").select("*", { count: "exact", head: true }).eq("media_type", "video"),
+        supabase.from("portfolio_media").select("*", { count: "exact", head: true }).eq("is_hero", true),
+        supabase.from("event_types").select("*", { count: "exact", head: true }).eq("is_active", true),
         supabase.from("event_types").select("*", { count: "exact", head: true }),
-        supabase.from("services_cameras").eq("is_active", true).select("*", { count: "exact", head: true }),
+        supabase.from("services_cameras").select("*", { count: "exact", head: true }).eq("is_active", true),
         supabase.from("services_cameras").select("*", { count: "exact", head: true }),
       ]);
       return {
