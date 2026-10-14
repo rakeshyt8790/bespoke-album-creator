@@ -14,13 +14,22 @@ type Counts = {
   servicesTotal: number;
 };
 
-async function count(table: string, match: Record<string, string> = {}): Promise<number> {
-  let req = supabase.from(table).select("*", { count: "exact", head: true });
-  for (const [key, value] of Object.entries(match)) req = req.eq(key, value);
-  const { count, error } = await req;
-  if (error) throw error;
-  return count ?? 0;
-}
+const { data: counts } = useQuery({
+    queryKey: ["overview-counts"],
+    queryFn: async (): Promise<Counts> => {
+      const [mediaTotal, mediaVideos, heroCount, eventsActive, eventsTotal, servicesActive, servicesTotal] =
+        await Promise.all([
+          countOf(() => supabase.from("portfolio_media")),
+          countOf(() => supabase.from("portfolio_media").eq("media_type", "video")),
+          countOf(() => supabase.from("portfolio_media").eq("is_hero", true)),
+          countOf(() => supabase.from("event_types").eq("is_active", true)),
+          countOf(() => supabase.from("event_types")),
+          countOf(() => supabase.from("services_cameras").eq("is_active", true)),
+          countOf(() => supabase.from("services_cameras")),
+        ]);
+      return { mediaTotal, mediaVideos, heroCount, eventsActive, eventsTotal, servicesActive, servicesTotal };
+    },
+  });
 
 function StatCard({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
