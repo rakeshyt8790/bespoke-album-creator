@@ -163,7 +163,7 @@ function Dashboard() {
 
         <div className="hairline my-8" />
 
-        <Tabs defaultValue="branding">
+        <Tabs defaultValue="overview">
           <TabsList className="mb-8 h-auto flex-wrap justify-start gap-2 rounded-none bg-transparent p-0">
             {TABS.map((t) => (
               <TabsTrigger
@@ -176,6 +176,9 @@ function Dashboard() {
             ))}
           </TabsList>
 
+          <TabsContent value="overview">
+            <OverviewPanel />
+          </TabsContent>
           <TabsContent value="branding">
             <BrandingPanel />
           </TabsContent>
