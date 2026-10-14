@@ -55,17 +55,24 @@ export function OverviewPanel() {
   const { data: counts } = useQuery({
     queryKey: ["overview-counts"],
     queryFn: async (): Promise<Counts> => {
-      const [mediaTotal, mediaVideos, heroCount, eventsActive, eventsTotal, servicesActive, servicesTotal] =
-        await Promise.all([
-          count("portfolio_media"),
-          count("portfolio_media", { media_type: "video" }),
-          count("portfolio_media", { is_hero: "true" }),
-          count("event_types", { is_active: "true" }),
-          count("event_types"),
-          count("services_cameras", { is_active: "true" }),
-          count("services_cameras"),
-        ]);
-      return { mediaTotal, mediaVideos, heroCount, eventsActive, eventsTotal, servicesActive, servicesTotal };
+      const [m, mv, mh, ev, evt, sv, svt] = await Promise.all([
+        supabase.from("portfolio_media").select("*", { count: "exact", head: true }),
+        supabase.from("portfolio_media").eq("media_type", "video").select("*", { count: "exact", head: true }),
+        supabase.from("portfolio_media").eq("is_hero", true).select("*", { count: "exact", head: true }),
+        supabase.from("event_types").eq("is_active", true).select("*", { count: "exact", head: true }),
+        supabase.from("event_types").select("*", { count: "exact", head: true }),
+        supabase.from("services_cameras").eq("is_active", true).select("*", { count: "exact", head: true }),
+        supabase.from("services_cameras").select("*", { count: "exact", head: true }),
+      ]);
+      return {
+        mediaTotal: unwrap(m),
+        mediaVideos: unwrap(mv),
+        heroCount: unwrap(mh),
+        eventsActive: unwrap(ev),
+        eventsTotal: unwrap(evt),
+        servicesActive: unwrap(sv),
+        servicesTotal: unwrap(svt),
+      };
     },
   });
 
