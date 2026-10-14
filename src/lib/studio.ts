@@ -25,6 +25,7 @@ export type PortfolioMedia = {
   is_hero: boolean;
   display_order: number;
   created_at: string;
+  storage_path?: string;
 };
 
 export type EventType = {
@@ -172,7 +173,7 @@ export function useMedia() {
           .from("portfolio")
           .createSignedUrls(paths, 60 * 60 * 24 * 7);
         const map = new Map((signed ?? []).map((x) => [x.path, x.signedUrl]));
-        return rows.map((r) => ({ ...r, media_url: map.get(r.media_url) || r.media_url }));
+        return rows.map((r) => ({ ...r, storage_path: r.media_url, media_url: map.get(r.media_url) || r.media_url }));
       }
       return rows;
     },
