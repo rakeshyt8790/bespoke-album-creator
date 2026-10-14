@@ -8,6 +8,13 @@
       "when": 1791966313086,
       "tag": "0000_wedding_studio_core",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791966335526,
+      "tag": "0001_rename_studio_default_to_parinayam",
+      "breakpoints": true
     }
   ]
 }
