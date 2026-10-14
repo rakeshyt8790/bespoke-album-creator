@@ -140,6 +140,9 @@ function Dashboard() {
           <div>
             <p className="eyebrow">Dashboard</p>
             <h1 className="mt-2 text-4xl">{settings.studio_name}</h1>
+            {settings.tagline ? (
+              <p className="mt-2 text-sm text-muted-foreground">{settings.tagline}</p>
+            ) : null}
           </div>
           <div className="flex items-center gap-4">
             <Link
