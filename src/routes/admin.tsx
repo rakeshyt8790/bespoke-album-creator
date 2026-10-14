@@ -66,29 +66,16 @@ function AdminPage() {
 }
 
 function LoginCard() {
-  const [email, setEmail] = useState("admin@studio.com");
-  const [password, setPassword] = useState("admin123");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
   const signIn = async () => {
     setBusy(true);
+    const email = `${username.trim().toLowerCase()}@parinayam.local`;
     const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) {
-      // First run: create the studio account with these credentials.
-      const { error: signUpError } = await supabase.auth.signUp({ email, password });
-      if (signUpError) {
-        setBusy(false);
-        toast.error(error.message);
-        return;
-      }
-      const retry = await supabase.auth.signInWithPassword({ email, password });
-      if (retry.error) {
-        setBusy(false);
-        toast.error(retry.error.message);
-        return;
-      }
-    }
     setBusy(false);
+    if (error) toast.error("Invalid username or password");
   };
 
   return (
@@ -98,10 +85,11 @@ function LoginCard() {
         <h1 className="mt-3 text-3xl">Sign in</h1>
         <div className="mt-8 space-y-4">
           <div>
-            <Label className="eyebrow">Email</Label>
+            <Label className="eyebrow">Username</Label>
             <Input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              autoComplete="username"
               className="mt-2 rounded-none border-border bg-transparent"
             />
           </div>
