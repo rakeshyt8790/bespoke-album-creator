@@ -14,22 +14,15 @@ type Counts = {
   servicesTotal: number;
 };
 
-const { data: counts } = useQuery({
-    queryKey: ["overview-counts"],
-    queryFn: async (): Promise<Counts> => {
-      const [mediaTotal, mediaVideos, heroCount, eventsActive, eventsTotal, servicesActive, servicesTotal] =
-        await Promise.all([
-          countOf(() => supabase.from("portfolio_media")),
-          countOf(() => supabase.from("portfolio_media").eq("media_type", "video")),
-          countOf(() => supabase.from("portfolio_media").eq("is_hero", true)),
-          countOf(() => supabase.from("event_types").eq("is_active", true)),
-          countOf(() => supabase.from("event_types")),
-          countOf(() => supabase.from("services_cameras").eq("is_active", true)),
-          countOf(() => supabase.from("services_cameras")),
-        ]);
-      return { mediaTotal, mediaVideos, heroCount, eventsActive, eventsTotal, servicesActive, servicesTotal };
-    },
-  });
+type CountRequest = Parameters<ReturnType<typeof supabase.from>["select"]>[0] extends never
+  ? never
+  : { select: () => { eq: (key: string, value: unknown) => unknown } };
+
+function countOf(build: () => unknown): PromiseLike<number> {
+  const req = build() as any;
+  const filtered = typeof req.select === "function" ? req : req.select("*", { count: "exact", head: true });
+  return filtered;
+}
 
 function StatCard({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
