@@ -7,19 +7,19 @@ import { QuoteBuilder } from "@/components/site/QuoteBuilder";
 export const Route = createFileRoute("/quote")({
   head: () => ({
     meta: [
-      { title: "Build Your Wedding Photography Quote | Parinayam Weddings" },
+      { title: "Build Your Wedding Photography Quote | Parinaya Wedding Films" },
       {
         name: "description",
         content:
-          "Build a tailored Parinayam Weddings photography and film estimate for every celebration, then check your date on WhatsApp.",
+          "Build a tailored Parinaya Wedding Films photography and film estimate for every celebration, then check your date on WhatsApp.",
       },
       {
         property: "og:title",
-        content: "Build Your Wedding Photography Quote | Parinayam Weddings",
+        content: "Build Your Wedding Photography Quote | Parinaya Wedding Films",
       },
       {
         property: "og:description",
-        content: "Create a tailored event-by-event wedding photography and film estimate with Parinayam Weddings.",
+        content: "Create a tailored event-by-event wedding photography and film estimate with Parinaya Wedding Films.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://bespoke-album-app.lovable.app/quote" },
