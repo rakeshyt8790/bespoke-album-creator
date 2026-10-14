@@ -7,6 +7,7 @@ import { BrandingPanel } from "@/components/admin/BrandingPanel";
 import { EventsPanel } from "@/components/admin/EventsPanel";
 import { InquiriesPanel } from "@/components/admin/InquiriesPanel";
 import { MediaPanel } from "@/components/admin/MediaPanel";
+import { OverviewPanel } from "@/components/admin/OverviewPanel";
 import { ServicesPanel } from "@/components/admin/ServicesPanel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +33,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 const TABS = [
+  { value: "overview", label: "Overview" },
   { value: "branding", label: "Branding" },
   { value: "media", label: "Gallery" },
   { value: "events", label: "Events" },
@@ -138,6 +140,9 @@ function Dashboard() {
           <div>
             <p className="eyebrow">Dashboard</p>
             <h1 className="mt-2 text-4xl">{settings.studio_name}</h1>
+            {settings.tagline ? (
+              <p className="mt-2 text-sm text-muted-foreground">{settings.tagline}</p>
+            ) : null}
           </div>
           <div className="flex items-center gap-4">
             <Link
@@ -158,7 +163,7 @@ function Dashboard() {
 
         <div className="hairline my-8" />
 
-        <Tabs defaultValue="branding">
+        <Tabs defaultValue="overview">
           <TabsList className="mb-8 h-auto flex-wrap justify-start gap-2 rounded-none bg-transparent p-0">
             {TABS.map((t) => (
               <TabsTrigger
@@ -171,6 +176,9 @@ function Dashboard() {
             ))}
           </TabsList>
 
+          <TabsContent value="overview">
+            <OverviewPanel />
+          </TabsContent>
           <TabsContent value="branding">
             <BrandingPanel />
           </TabsContent>
