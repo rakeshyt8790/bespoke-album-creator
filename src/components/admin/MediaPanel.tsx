@@ -247,7 +247,7 @@ export function MediaPanel() {
                     <button
                       type="button"
                       aria-label="Delete"
-                      onClick={() => remove(m.id, m.media_url)}
+                      onClick={() => remove(m.id, m.storage_path ?? m.media_url)}
                       className="text-muted-foreground transition-colors hover:text-destructive"
                     >
                       <Trash2 className="size-4" />
