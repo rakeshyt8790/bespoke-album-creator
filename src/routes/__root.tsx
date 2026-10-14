@@ -79,14 +79,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Parinayam Weddings | Luxury Candid Wedding Photography" },
+      { title: "Parinaya Wedding Films | Luxury Candid Wedding Photography" },
       {
         name: "description",
         content:
-          "Parinayam Weddings creates luxury candid wedding photography and cinematic films for celebrations across India.",
+          "Parinaya Wedding Films creates luxury candid wedding photography and cinematic films for celebrations across India.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Parinayam Weddings" },
+      { property: "og:site_name", content: "Parinaya Wedding Films" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

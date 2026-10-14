@@ -10,15 +10,15 @@ import { useSettings } from "@/lib/studio";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Parinayam Weddings | Luxury Candid Wedding Photography" },
+      { title: "Parinaya Wedding Films | Luxury Candid Wedding Photography" },
       {
         name: "description",
         content:
-          "Parinayam Weddings documents Indian celebrations through luxury candid wedding photography and cinematic films.",
+          "Parinaya Wedding Films documents Indian celebrations through luxury candid wedding photography and cinematic films.",
       },
       {
         property: "og:title",
-        content: "Parinayam Weddings | Luxury Candid Wedding Photography & Films",
+        content: "Parinaya Wedding Films | Luxury Candid Wedding Photography & Films",
       },
       {
         property: "og:description",
@@ -36,7 +36,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Parinayam Weddings | Luxury Candid Wedding Photography & Films",
+        content: "Parinaya Wedding Films | Luxury Candid Wedding Photography & Films",
       },
       {
         name: "twitter:description",

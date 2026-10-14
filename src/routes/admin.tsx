@@ -19,11 +19,11 @@ export const Route = createFileRoute("/admin")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Studio Dashboard | Parinayam Weddings" },
-      { name: "description", content: "Private Parinayam Weddings studio dashboard." },
+      { title: "Studio Dashboard | Parinaya Wedding Films" },
+      { name: "description", content: "Private Parinaya Wedding Films studio dashboard." },
       { name: "robots", content: "noindex" },
-      { property: "og:title", content: "Studio Dashboard | Parinayam Weddings" },
-      { property: "og:description", content: "Private Parinayam Weddings studio dashboard." },
+      { property: "og:title", content: "Studio Dashboard | Parinaya Wedding Films" },
+      { property: "og:description", content: "Private Parinaya Wedding Films studio dashboard." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
