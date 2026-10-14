@@ -33,6 +33,7 @@ export const Route = createFileRoute("/admin")({
 });
 
 const TABS = [
+  { value: "overview", label: "Overview" },
   { value: "branding", label: "Branding" },
   { value: "media", label: "Gallery" },
   { value: "events", label: "Events" },
