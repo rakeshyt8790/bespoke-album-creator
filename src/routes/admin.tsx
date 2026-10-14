@@ -8,6 +8,7 @@ import { EventsPanel } from "@/components/admin/EventsPanel";
 import { InquiriesPanel } from "@/components/admin/InquiriesPanel";
 import { MediaPanel } from "@/components/admin/MediaPanel";
 import { OverviewPanel } from "@/components/admin/OverviewPanel";
+import { SecurityPanel } from "@/components/admin/SecurityPanel";
 import { ServicesPanel } from "@/components/admin/ServicesPanel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,6 +40,7 @@ const TABS = [
   { value: "events", label: "Events" },
   { value: "services", label: "Pricing" },
   { value: "inquiries", label: "Leads" },
+  { value: "security", label: "Security" },
 ];
 
 function AdminPage() {
@@ -193,6 +195,9 @@ function Dashboard() {
           </TabsContent>
           <TabsContent value="inquiries">
             <InquiriesPanel />
+          </TabsContent>
+          <TabsContent value="security">
+            <SecurityPanel />
           </TabsContent>
         </Tabs>
       </div>
