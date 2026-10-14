@@ -14,14 +14,11 @@ type Counts = {
   servicesTotal: number;
 };
 
-type CountRequest = Parameters<ReturnType<typeof supabase.from>["select"]>[0] extends never
-  ? never
-  : { select: () => { eq: (key: string, value: unknown) => unknown } };
+type CountResult = { count: number | null; error: { message: string } | null };
 
-function countOf(build: () => unknown): PromiseLike<number> {
-  const req = build() as any;
-  const filtered = typeof req.select === "function" ? req : req.select("*", { count: "exact", head: true });
-  return filtered;
+function unwrap({ count, error }: CountResult): number {
+  if (error) throw new Error(error.message);
+  return count ?? 0;
 }
 
 function StatCard({ label, value, hint }: { label: string; value: string; hint?: string }) {
